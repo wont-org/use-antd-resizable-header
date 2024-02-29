@@ -1,4 +1,4 @@
-# [1.0.0](https://github.com/wont-org/use-antd-resizable-header/compare/v2.9.5...v1.0.0) (2024-02-29)
+## [1.0.1](https://github.com/wont-org/use-antd-resizable-header/compare/v2.9.5...v1.0.1) (2024-02-29)
 
 
 ### Features
