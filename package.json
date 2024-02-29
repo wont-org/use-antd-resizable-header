@@ -1,5 +1,5 @@
 {
-  "name": "use-antd-resizable-header",
+  "name": "@wont/use-antd-resizable-header",
   "version": "1.0.0",
   "description": "antd resizable header column hook",
   "type": "module",
@@ -34,6 +34,7 @@
     "./index.css": "./dist/index.css"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "dev": "rimraf dist &&tsup --watch",
     "build": "rimraf dist && tsup",
     "test": "vitest",
@@ -42,6 +43,10 @@
     "upgrade:deps": "pnpm up -i --latest",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "bump": "bumpp package.json -c -p -t --all -x \"pnpm run changelog\""
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

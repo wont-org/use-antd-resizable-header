@@ -257,7 +257,6 @@ function useAntdResizableHeader<
       window.removeEventListener("resize", debounceRender);
     };
   }, [debounceRender]);
-  console.log("ResizableHeader :>> ", ResizableHeader);
   const components = useMemo(() => {
     return {
       header: {
