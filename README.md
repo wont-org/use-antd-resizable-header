@@ -1,5 +1,7 @@
 # use-antd-resizable-header
 
+> extend from https://github.com/hemengke1997/use-antd-resizable-header, cause no one approval pull request and publish, details [#81 feat: custom dragRender](https://github.com/hemengke1997/use-antd-resizable-header/pull/81)
+
 > antd 表格头拖拽 Hook，兼容 Table ProTable
 
 ## 预览
@@ -16,10 +18,12 @@
 npm i use-antd-resizable-header
 ```
 
-or 
+or
+
 ```sh
 yarn add use-antd-resizable-header
 ```
+
 or
 
 ```sh
@@ -30,18 +34,18 @@ pnpm add use-antd-resizable-header
 
 ### Properties
 
-| Name           | Type             | Default   | Description                                          |
-| -------------- | ---------------- | --------- | ---------------------------------------------------- |
-| columns        | ColumnType[]     | undefined | antd table 的 columns                                |
-| defaultWidth   | number           | 120       | 某一列不能拖动，设置该列的最小展示宽度，默认 120     |
-| minConstraints | number           | 60        | 拖动最小宽度 默认 defaultWidth/2                     |
-| maxConstraints | number           | Infinity  | 拖动最大宽度 默认无穷                                |
-| cache          | boolean          | true      | 是否缓存宽度，避免渲染重置拖拽宽度                   |
-| columnsState   | ColumnsStateType | undefined | 列状态的配置，可以用来操作列拖拽宽度                 |
-| onResizeStart  | Function         | undefined | 开始拖拽时触发                                       |
-| onResizeEnd    | Function         | undefined | 结束拖拽时触发                                       |
-| tooltipRender  | Function         | undefined | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip |
-| dragRender  | ReactNode         | svg左右拖动dom | 控制表头拖拽节点 |
+| Name           | Type             | Default        | Description                                          |
+| -------------- | ---------------- | -------------- | ---------------------------------------------------- |
+| columns        | ColumnType[]     | undefined      | antd table 的 columns                                |
+| defaultWidth   | number           | 120            | 某一列不能拖动，设置该列的最小展示宽度，默认 120     |
+| minConstraints | number           | 60             | 拖动最小宽度 默认 defaultWidth/2                     |
+| maxConstraints | number           | Infinity       | 拖动最大宽度 默认无穷                                |
+| cache          | boolean          | true           | 是否缓存宽度，避免渲染重置拖拽宽度                   |
+| columnsState   | ColumnsStateType | undefined      | 列状态的配置，可以用来操作列拖拽宽度                 |
+| onResizeStart  | Function         | undefined      | 开始拖拽时触发                                       |
+| onResizeEnd    | Function         | undefined      | 结束拖拽时触发                                       |
+| tooltipRender  | Function         | undefined      | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip |
+| dragRender     | ReactNode        | svg左右拖动dom | 控制表头拖拽节点                                     |
 
 ### Return
 
@@ -67,36 +71,51 @@ pnpm add use-antd-resizable-header
 ## Example
 
 ```tsx
-import ProTable from '@ant-design/pro-table'
-import { Button, Table, Tooltip } from 'antd'
-import { useAntdResizableHeader } from 'use-antd-resizable-header'
+import ProTable from "@ant-design/pro-table";
+import { Button, Table, Tooltip } from "antd";
+import { useAntdResizableHeader } from "use-antd-resizable-header";
 
 function App() {
-  const columns: ColumnsType<object> = []
-  const { components, resizableColumns, tableWidth, resetColumns } = useAntdResizableHeader({
-    columns: useMemo(() => columns, []),
-    // 保存拖拽宽度至本地localStorage
-    columnsState: {
-      persistenceKey: 'localKey',
-      persistenceType: 'localStorage',
-    },
-    tooltipRender: (props) => <Tooltip {...props} />,
-  })
-
-  const proColumns: ProColumns[] = []
-  const { components: proComponents, resizableColumns: proResizableColumns, tableWidth: proTableWidth, resetColumns: proResetColumns } = useAntdResizableHeader({
-      columns: useMemo(() => proColumns, []),
+  const columns: ColumnsType<object> = [];
+  const { components, resizableColumns, tableWidth, resetColumns } =
+    useAntdResizableHeader({
+      columns: useMemo(() => columns, []),
+      // 保存拖拽宽度至本地localStorage
+      columnsState: {
+        persistenceKey: "localKey",
+        persistenceType: "localStorage",
+      },
       tooltipRender: (props) => <Tooltip {...props} />,
-    })
-  
+    });
+
+  const proColumns: ProColumns[] = [];
+  const {
+    components: proComponents,
+    resizableColumns: proResizableColumns,
+    tableWidth: proTableWidth,
+    resetColumns: proResetColumns,
+  } = useAntdResizableHeader({
+    columns: useMemo(() => proColumns, []),
+    tooltipRender: (props) => <Tooltip {...props} />,
+  });
 
   return (
     <>
-      <Table columns={resizableColumns} components={components} dataSource={data} scroll={{ x: tableWidth }} />
-      <ProTable columns={proResizableColumns} components={proComponents} dataSource={data} scroll={{ x: proTableWidth }} />
+      <Table
+        columns={resizableColumns}
+        components={components}
+        dataSource={data}
+        scroll={{ x: tableWidth }}
+      />
+      <ProTable
+        columns={proResizableColumns}
+        components={proComponents}
+        dataSource={data}
+        scroll={{ x: proTableWidth }}
+      />
       <Button onClick={() => resetColumns()}>重置宽度</Button>
     </>
-  )
+  );
 }
 ```
 
@@ -108,43 +127,43 @@ function App() {
 ```
 
 ```tsx
-import { Space, Table, Tag } from 'antd'
-import React, { useReducer } from 'react'
-import { useAntdResizableHeader } from 'use-antd-resizable-header'
+import { Space, Table, Tag } from "antd";
+import React, { useReducer } from "react";
+import { useAntdResizableHeader } from "use-antd-resizable-header";
 
 const data = [
   {
-    key: '1',
-    name: 'John Brown',
+    key: "1",
+    name: "John Brown",
     age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    address: "New York No. 1 Lake Park",
+    tags: ["nice", "developer"],
   },
   {
-    key: '2',
-    name: 'Jim Green',
+    key: "2",
+    name: "Jim Green",
     age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    address: "London No. 1 Lake Park",
+    tags: ["loser"],
   },
   {
-    key: '3',
-    name: 'Joe Black',
+    key: "3",
+    name: "Joe Black",
     age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    address: "Sidney No. 1 Lake Park",
+    tags: ["cool", "teacher"],
   },
-]
+];
 
 const Example: React.FC = () => {
-  const [, forceRender] = useReducer((s) => s + 1, 0)
-  const [deps, setDeps] = useState(0)
+  const [, forceRender] = useReducer((s) => s + 1, 0);
+  const [deps, setDeps] = useState(0);
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
       width: 300,
       ellipsis: true,
       render: (text) => (
@@ -155,51 +174,51 @@ const Example: React.FC = () => {
       ),
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
       ellipsis: true,
       width: 200,
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
       ellipsis: true,
       width: 200,
     },
     {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
+      title: "Tags",
+      key: "tags",
+      dataIndex: "tags",
       width: 200,
       ellipsis: true,
       render: (tags) => (
         <>
           {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
+            let color = tag.length > 5 ? "geekblue" : "green";
+            if (tag === "loser") {
+              color = "volcano";
             }
             return (
               <Tag color={color} key={tag}>
                 {tag.toUpperCase()}
               </Tag>
-            )
+            );
           })}
         </>
       ),
     },
     {
-      title: 'render',
-      key: 'action',
+      title: "render",
+      key: "action",
       render: (text, record) => (
-        <Space size='middle'>
+        <Space size="middle">
           <a>Invite {record.name}</a>
           <a
             onClick={() => {
-              forceRender()
-              alert('render')
+              forceRender();
+              alert("render");
             }}
           >
             render
@@ -207,15 +226,22 @@ const Example: React.FC = () => {
         </Space>
       ),
     },
-  ]
+  ];
 
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
     columns: useMemo(() => columns, [deps]),
     minConstraints: 50,
-  })
+  });
 
-  return <Table columns={resizableColumns} components={components} dataSource={data} scroll={{ x: tableWidth }} />
-}
+  return (
+    <Table
+      columns={resizableColumns}
+      components={components}
+      dataSource={data}
+      scroll={{ x: tableWidth }}
+    />
+  );
+};
 ```
 
 ## 为什么需要 React.useMemo ?

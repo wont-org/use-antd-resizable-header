@@ -1,6 +1,6 @@
 {
   "name": "use-antd-resizable-header",
-  "version": "2.9.5",
+  "version": "1.0.0",
   "description": "antd resizable header column hook",
   "type": "module",
   "keywords": [
@@ -9,15 +9,15 @@
     "resiable header"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/hemengke1997/use-antd-resizable-header",
+  "homepage": "https://github.com/wont-org/use-antd-resizable-header",
   "bugs": {
-    "url": "https://github.com/hemengke1997/use-antd-resizable-header/issues"
+    "url": "https://github.com/wont-org/use-antd-resizable-header/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hemengke1997/use-antd-resizable-header.git"
+    "url": "git+https://github.com/wont-org/use-antd-resizable-header.git"
   },
-  "author": "hemengke1997",
+  "author": "lk0606",
   "files": [
     "CHANGELOG.md",
     "dist"
