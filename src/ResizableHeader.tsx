@@ -1,4 +1,5 @@
 import React, {
+  type CSSProperties,
   type FC,
   type ReactNode,
   type ThHTMLAttributes,
@@ -32,6 +33,7 @@ type ComponentProp = {
   minWidth: number;
   maxWidth: number;
   dragRender?: ReactNode;
+  dragWrapperStyle?: CSSProperties;
   tooltipRender?: OptionsType["tooltipRender"];
 } & UARHColumnType &
   ThHTMLAttributes<HTMLTableCellElement>;
@@ -74,6 +76,7 @@ const ResizableHeader: FC<ComponentProp> = (props) => {
     scope,
     tooltipRender,
     dragRender,
+    dragWrapperStyle,
     ...rest
   } = props;
 
@@ -187,6 +190,7 @@ const ResizableHeader: FC<ComponentProp> = (props) => {
             onClick={(e) => {
               e.stopPropagation();
             }}
+            style={dragWrapperStyle}
           >
             {/* <div className='resizable-line' /> */}
             {dragRender || defaultDragRender}

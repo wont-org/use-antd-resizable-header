@@ -1,4 +1,5 @@
 import React, {
+  type CSSProperties,
   type PropsWithChildren,
   type ReactNode,
   useCallback,
@@ -62,6 +63,7 @@ export interface OptionsType<
    */
   tooltipRender?: <T extends PropsWithChildren>(props: T) => ReactNode;
   dragRender?: ReactNode;
+  dragWrapperStyle?: CSSProperties;
 }
 
 type WidthType = number | string;
@@ -96,6 +98,7 @@ function useAntdResizableHeader<
     onResizeEnd: onResizeEndProp,
     tooltipRender,
     dragRender,
+    dragWrapperStyle,
   } = props;
 
   validateColumnsFlex(columnsProp);
@@ -258,7 +261,13 @@ function useAntdResizableHeader<
   const components = useMemo(() => {
     return {
       header: {
-        cell: (props) => <ResizableHeader {...props} dragRender={dragRender} />,
+        cell: (props) => (
+          <ResizableHeader
+            {...props}
+            dragRender={dragRender}
+            dragWrapperStyle={dragWrapperStyle}
+          />
+        ),
       },
     };
   }, []);

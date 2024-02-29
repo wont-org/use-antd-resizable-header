@@ -34,18 +34,19 @@ pnpm add use-antd-resizable-header
 
 ### Properties
 
-| Name           | Type             | Default        | Description                                          |
-| -------------- | ---------------- | -------------- | ---------------------------------------------------- |
-| columns        | ColumnType[]     | undefined      | antd table 的 columns                                |
-| defaultWidth   | number           | 120            | 某一列不能拖动，设置该列的最小展示宽度，默认 120     |
-| minConstraints | number           | 60             | 拖动最小宽度 默认 defaultWidth/2                     |
-| maxConstraints | number           | Infinity       | 拖动最大宽度 默认无穷                                |
-| cache          | boolean          | true           | 是否缓存宽度，避免渲染重置拖拽宽度                   |
-| columnsState   | ColumnsStateType | undefined      | 列状态的配置，可以用来操作列拖拽宽度                 |
-| onResizeStart  | Function         | undefined      | 开始拖拽时触发                                       |
-| onResizeEnd    | Function         | undefined      | 结束拖拽时触发                                       |
-| tooltipRender  | Function         | undefined      | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip |
-| dragRender     | ReactNode        | svg左右拖动dom | 控制表头拖拽节点                                     |
+| Name             | Type             | Default        | Description                                          |
+| ---------------- | ---------------- | -------------- | ---------------------------------------------------- |
+| columns          | ColumnType[]     | undefined      | antd table 的 columns                                |
+| defaultWidth     | number           | 120            | 某一列不能拖动，设置该列的最小展示宽度，默认 120     |
+| minConstraints   | number           | 60             | 拖动最小宽度 默认 defaultWidth/2                     |
+| maxConstraints   | number           | Infinity       | 拖动最大宽度 默认无穷                                |
+| cache            | boolean          | true           | 是否缓存宽度，避免渲染重置拖拽宽度                   |
+| columnsState     | ColumnsStateType | undefined      | 列状态的配置，可以用来操作列拖拽宽度                 |
+| onResizeStart    | Function         | undefined      | 开始拖拽时触发                                       |
+| onResizeEnd      | Function         | undefined      | 结束拖拽时触发                                       |
+| tooltipRender    | Function         | undefined      | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip |
+| dragRender       | ReactNode        | svg左右拖动dom | 控制表头拖拽节点                                     |
+| dragWrapperStyle | CSSProperties    | undefined      | dragRender的父元素内联样式                           |
 
 ### Return
 
