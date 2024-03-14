@@ -1,14 +1,14 @@
-import ProTable, { type ProColumns } from '@ant-design/pro-table'
-import { Tooltip } from 'antd'
-import { useMemo } from 'react'
-import { useAntdResizableHeader } from 'use-antd-resizable-header'
+import ProTable, { type ProColumns } from "@ant-design/pro-table";
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
+import { Tooltip } from "antd";
+import { useMemo } from "react";
 
 const columns: ProColumns[] = [
   {
-    title: 'title mmmmmmmmmmmmmmmmmm',
-    dataIndex: 'name',
+    title: "title mmmmmmmmmmmmmmmmmm",
+    dataIndex: "name",
     width: 150,
-    key: 'name',
+    key: "name",
     ellipsis: {
       showTitle: true,
     },
@@ -16,44 +16,49 @@ const columns: ProColumns[] = [
   },
   {
     title: <div>title2</div>,
-    dataIndex: 'street',
-    key: 'street',
-    valueType: 'dateRange',
+    dataIndex: "street",
+    key: "street",
+    valueType: "dateRange",
   },
-]
+];
 
-const data: any[] = []
+const data: any[] = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
-    name: 'John Brown',
+    name: "John Brown",
     age: i + 1,
-    street: 'Lake Park',
-    building: 'C',
+    street: "Lake Park",
+    building: "C",
     number: 2035,
-    remark: 'Lake Street 42',
-    companyName: 'SoftLake Co',
-    gender: 'M',
-  })
+    remark: "Lake Street 42",
+    companyName: "SoftLake Co",
+    gender: "M",
+  });
 }
 
 const ResizableTable = () => {
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
     columns: useMemo(() => columns, []),
     columnsState: {
-      persistenceKey: 'localKey',
-      persistenceType: 'localStorage',
+      persistenceKey: "localKey",
+      persistenceType: "localStorage",
     },
     tooltipRender: (props) => <Tooltip {...props} />,
-  })
+  });
   return (
     <>
       <div>
-        <ProTable columns={resizableColumns} components={components} dataSource={data} scroll={{ x: tableWidth }} />
-        <Tooltip title={'123'} open={undefined} children='test'></Tooltip>
+        <ProTable
+          columns={resizableColumns}
+          components={components}
+          dataSource={data}
+          scroll={{ x: tableWidth }}
+        />
+        <Tooltip title={"123"} open={undefined} children="test"></Tooltip>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ResizableTable
+export default ResizableTable;

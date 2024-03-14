@@ -1,10 +1,10 @@
-import { Table } from 'antd'
-import React from 'react'
-import { useAntdResizableHeader } from 'use-antd-resizable-header'
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
+import { Table } from "antd";
+import React from "react";
 
 interface IProps {
-  columns: any[]
-  dataSource: any[]
+  columns: any[];
+  dataSource: any[];
 }
 const TableComponent: React.FC<IProps> = (props) => {
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
@@ -12,10 +12,10 @@ const TableComponent: React.FC<IProps> = (props) => {
     minConstraints: 70,
     defaultWidth: 222,
     columnsState: {
-      persistenceType: 'localStorage',
-      persistenceKey: 'localColumns',
+      persistenceType: "localStorage",
+      persistenceKey: "localColumns",
     },
-  })
+  });
 
   return (
     <div style={{ width: 500 }}>
@@ -26,7 +26,7 @@ const TableComponent: React.FC<IProps> = (props) => {
         scroll={{ x: tableWidth }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default TableComponent
+export default TableComponent;

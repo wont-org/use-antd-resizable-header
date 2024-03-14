@@ -1,4 +1,4 @@
-# use-antd-resizable-header
+# @wont/use-antd-resizable-header
 
 > extend from https://github.com/hemengke1997/use-antd-resizable-header, cause no one approval pull request and publish, details [#81 feat: custom dragRender](https://github.com/hemengke1997/use-antd-resizable-header/pull/81)
 
@@ -10,43 +10,43 @@
 
 ## 在线地址
 
-[Demo](https://stackblitz.com/edit/use-antd-resizable-header-demo?file=src/App.tsx)
+[Demo 基于antd-v4](https://codesandbox.io/p/devbox/use-antd-resizable-header-cv8vgv?file=%2Fsrc%2FApp.tsx%3A34%2C9)
 
 ## 安装
 
 ```sh
-npm i use-antd-resizable-header
+npm i @wont/use-antd-resizable-header
 ```
 
 or
 
 ```sh
-yarn add use-antd-resizable-header
+yarn add @wont/use-antd-resizable-header
 ```
 
 or
 
 ```sh
-pnpm add use-antd-resizable-header
+pnpm add @wont/use-antd-resizable-header
 ```
 
 ## API
 
 ### Properties
 
-| Name             | Type             | Default        | Description                                          |
-| ---------------- | ---------------- | -------------- | ---------------------------------------------------- |
-| columns          | ColumnType[]     | undefined      | antd table 的 columns                                |
-| defaultWidth     | number           | 120            | 某一列不能拖动，设置该列的最小展示宽度，默认 120     |
-| minConstraints   | number           | 60             | 拖动最小宽度 默认 defaultWidth/2                     |
-| maxConstraints   | number           | Infinity       | 拖动最大宽度 默认无穷                                |
-| cache            | boolean          | true           | 是否缓存宽度，避免渲染重置拖拽宽度                   |
-| columnsState     | ColumnsStateType | undefined      | 列状态的配置，可以用来操作列拖拽宽度                 |
-| onResizeStart    | Function         | undefined      | 开始拖拽时触发                                       |
-| onResizeEnd      | Function         | undefined      | 结束拖拽时触发                                       |
-| tooltipRender    | Function         | undefined      | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip |
-| dragRender       | ReactNode        | svg左右拖动dom | 控制表头拖拽节点                                     |
-| dragWrapperStyle | CSSProperties    | undefined      | dragRender的父元素内联样式                           |
+| Name             | Type                                                      | Default        | Description                                                                      |
+| ---------------- | --------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------- |
+| columns          | <<ColumnType \| ProColumnType> & {resizable?: boolean}>[] | undefined      | 基于antd table/pro-table 的 columns扩展了**resizable: boolean**，false则不可拖拽 |
+| defaultWidth     | number                                                    | 120            | 某一列不能拖动，设置该列的最小展示宽度，默认 120                                 |
+| minConstraints   | number                                                    | 60             | 拖动最小宽度 默认 defaultWidth/2                                                 |
+| maxConstraints   | number                                                    | Infinity       | 拖动最大宽度 默认无穷                                                            |
+| cache            | boolean                                                   | true           | 是否缓存宽度，避免渲染重置拖拽宽度                                               |
+| columnsState     | ColumnsStateType                                          | undefined      | 列状态的配置，可以用来操作列拖拽宽度                                             |
+| onResizeStart    | Function                                                  | undefined      | 开始拖拽时触发                                                                   |
+| onResizeEnd      | Function                                                  | undefined      | 结束拖拽时触发                                                                   |
+| tooltipRender    | Function                                                  | undefined      | 使用tooltip渲染表格头，当表格头文字溢出时展示tooltip                             |
+| dragRender       | ReactNode                                                 | svg左右拖动dom | 控制表头拖拽节点                                                                 |
+| dragWrapperStyle | CSSProperties                                             | undefined      | dragRender的父元素内联样式                                                       |
 
 ### Return
 
@@ -64,17 +64,89 @@ pnpm add use-antd-resizable-header
 - **若 column 未传入`dataIndex`，请传入一个唯一的`key`，否则按照将按照 column 的序号 index 计算唯一 key**
 - **若 column 有副作用，请把依赖项传入 useMemo deps 中**
 
-## Break-Change
+## 封装ProTable和Table
 
-- v2.9.0起，不需要再手动引入css样式文件
-- 请安装 `use-antd-resizable-header`，而非 `@minko-fe/use-antd-resizable-header`
+> v4和v5一致，仓库中playground基于v5
 
-## Example
+[在线地址 基于antd-v4](https://codesandbox.io/p/devbox/use-antd-resizable-header-cv8vgv?file=%2Fsrc%2FApp.tsx%3A34%2C9)
+
+```tsx
+import {
+  type ParamsType,
+  type ProColumns,
+  ProTable,
+  type ProTableProps,
+} from "@ant-design/pro-components";
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
+import { Table } from "antd";
+import { ElementType } from "react";
+
+type ColumnsState = Parameters<
+  typeof useAntdResizableHeader
+>["0"]["columnsState"];
+export type AntdResizableTableColumns<DataType> = ProColumns<DataType> & {
+  resizable?: boolean;
+};
+
+export type AntdResizableTableProps<
+  DataType extends Record<string, any>,
+  Params extends ParamsType = ParamsType,
+  ValueType = "text",
+> = Omit<ProTableProps<DataType, Params, ValueType>, "columns"> & {
+  columns: AntdResizableTableColumns<DataType>[];
+  tableType?: "ProTable" | "Table";
+  persistenceKey?: string;
+  columnsState?: ColumnsState;
+};
+
+export type AntdResizableTableComponent = <
+  DataType extends Record<string, any>,
+  Params extends ParamsType = ParamsType,
+  ValueType = "text",
+>(
+  props: AntdResizableTableProps<DataType, Params, ValueType>
+) => JSX.Element;
+
+const tableMap = {
+  ProTable,
+  Table,
+};
+
+const AntdResizableTable: AntdResizableTableComponent = (props) => {
+  const {
+    tableType = "ProTable",
+    columns,
+    columnsState,
+    ...tableProps
+  } = props;
+
+  const Component = tableMap[tableType] as ElementType<
+    (typeof tableMap)[typeof tableType]
+  >;
+  const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
+    columns,
+    columnsState,
+    minConstraints: 80,
+  });
+  return (
+    <Component
+      {...tableProps}
+      components={components}
+      columns={resizableColumns}
+      scroll={{ x: tableWidth }}
+    />
+  );
+};
+
+export default AntdResizableTable;
+```
+
+## ProTable
 
 ```tsx
 import ProTable from "@ant-design/pro-table";
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
 import { Button, Table, Tooltip } from "antd";
-import { useAntdResizableHeader } from "use-antd-resizable-header";
 
 function App() {
   const columns: ColumnsType<object> = [];
@@ -120,17 +192,12 @@ function App() {
 }
 ```
 
-## 基本用例
-
-```css
-/* index.css */
---arh-color: red;
-```
+## Table
 
 ```tsx
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
 import { Space, Table, Tag } from "antd";
 import React, { useReducer } from "react";
-import { useAntdResizableHeader } from "use-antd-resizable-header";
 
 const data = [
   {
@@ -139,20 +206,6 @@ const data = [
     age: 32,
     address: "New York No. 1 Lake Park",
     tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
   },
 ];
 
@@ -178,13 +231,6 @@ const Example: React.FC = () => {
       title: "Age",
       dataIndex: "age",
       key: "age",
-      ellipsis: true,
-      width: 200,
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
       ellipsis: true,
       width: 200,
     },
@@ -296,4 +342,4 @@ pnpm run dev
 
 ## MIT
 
-[LICENSE](https://github.com/hemengke1997/use-antd-resizable-header/blob/master/LICENSE)
+[LICENSE](https://github.com/wont-org/use-antd-resizable-header/blob/master/LICENSE)

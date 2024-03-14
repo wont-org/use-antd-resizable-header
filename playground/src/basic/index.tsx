@@ -1,7 +1,12 @@
 import ProTable from "@ant-design/pro-table";
+import {
+  type ColumnsStateType,
+  useAntdResizableHeader,
+} from "@wont/use-antd-resizable-header";
 import { Table } from "antd";
-import { useMemo, useReducer } from "react";
-import { useAntdResizableHeader } from "use-antd-resizable-header";
+
+const d: ColumnsStateType = "1";
+console.log("d :>> ", d);
 
 const tcls: any[] = [
   {

@@ -1,34 +1,34 @@
-import ProTable from '@ant-design/pro-table'
-import { Tooltip } from 'antd'
-import { useAntdResizableHeader } from 'use-antd-resizable-header'
+import ProTable from "@ant-design/pro-table";
+import { Tooltip } from "antd";
+import { useAntdResizableHeader } from "@wont/use-antd-resizable-header";
 
 const columns: any[] = [
   {
-    title: 'SN',
-    dataIndex: 'sn',
-    key: 'sn',
-    align: 'center',
+    title: "SN",
+    dataIndex: "sn",
+    key: "sn",
+    align: "center",
     width: 90,
   },
   {
-    title: '类型',
-    dataIndex: 'deviceType',
-    key: 'deviceType',
-    align: 'center',
+    title: "类型",
+    dataIndex: "deviceType",
+    key: "deviceType",
+    align: "center",
     width: 90,
   },
   {
-    title: '设备',
-    dataIndex: 'dis',
-    key: 'dis',
-    align: 'center',
+    title: "设备",
+    dataIndex: "dis",
+    key: "dis",
+    align: "center",
     hideInTable: true,
   },
   {
-    title: '备注',
-    dataIndex: 'remark',
-    key: 'remark',
-    align: 'center',
+    title: "备注",
+    dataIndex: "remark",
+    key: "remark",
+    align: "center",
     width: 90,
     ellipsis: false, // ellipsis 跟 tooltip冲突
     render: (text: any) => {
@@ -36,30 +36,30 @@ const columns: any[] = [
         <Tooltip title={text}>
           <div>{text}</div>
         </Tooltip>
-      )
+      );
     },
   },
-]
+];
 
-const data: any[] = []
+const data: any[] = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
-    name: 'John Brown',
+    name: "John Brown",
     age: i + 1,
-    street: 'Lake Park',
-    building: 'C',
+    street: "Lake Park",
+    building: "C",
     number: 2035,
-    remark: 'Lake Street 42',
-    companyName: 'SoftLake Co',
-    gender: 'M',
-  })
+    remark: "Lake Street 42",
+    companyName: "SoftLake Co",
+    gender: "M",
+  });
 }
 
 const ResizableTable = () => {
   const { components, resizableColumns, tableWidth } = useAntdResizableHeader({
     columns,
-  })
+  });
   return (
     <>
       <div>
@@ -74,7 +74,7 @@ const ResizableTable = () => {
         />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ResizableTable
+export default ResizableTable;

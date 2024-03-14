@@ -1,59 +1,59 @@
-import { Table } from 'antd'
-import React, { useEffect, useMemo, useState } from 'react'
-import useARH from 'use-antd-resizable-header'
+import { Table } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import useARH from "@wont/use-antd-resizable-header";
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
     width: 100,
     ellipsis: true,
-    fixed: 'left',
+    fixed: "left",
     filters: [
       {
-        text: 'Joe',
-        value: 'Joe',
+        text: "Joe",
+        value: "Joe",
       },
       {
-        text: 'John',
-        value: 'John',
+        text: "John",
+        value: "John",
       },
     ],
     onFilter: (value, record) => record.name.indexOf(value) === 0,
   },
   {
-    title: 'Other',
+    title: "Other",
     children: [
       {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
+        title: "Age",
+        dataIndex: "age",
+        key: "age",
         width: 150,
         sorter: (a, b) => a.age - b.age,
       },
       {
-        title: 'Address',
+        title: "Address",
         children: [
           {
-            title: 'Street',
-            dataIndex: 'street',
-            key: 'street',
+            title: "Street",
+            dataIndex: "street",
+            key: "street",
             width: 150,
           },
           {
-            title: 'Block',
+            title: "Block",
             children: [
               {
-                title: 'Building',
-                dataIndex: 'building',
-                key: 'building',
+                title: "Building",
+                dataIndex: "building",
+                key: "building",
                 width: 100,
               },
               {
-                title: 'Door No.',
-                dataIndex: 'number',
-                key: 'number',
+                title: "Door No.",
+                dataIndex: "number",
+                key: "number",
                 width: 100,
               },
             ],
@@ -63,68 +63,73 @@ const columns = [
     ],
   },
   {
-    title: 'Company',
+    title: "Company",
     children: [
       {
-        title: 'Company Address',
-        dataIndex: 'companyAddress',
-        key: 'companyAddress',
+        title: "Company Address",
+        dataIndex: "companyAddress",
+        key: "companyAddress",
         width: 200,
       },
       {
-        title: 'Company Name',
-        dataIndex: 'companyName',
-        key: 'companyName',
+        title: "Company Name",
+        dataIndex: "companyName",
+        key: "companyName",
       },
     ],
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
-    key: 'gender',
+    title: "Gender",
+    dataIndex: "gender",
+    key: "gender",
     width: 80,
-    fixed: 'right',
+    fixed: "right",
   },
-]
+];
 
-const data: any[] = []
+const data: any[] = [];
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
-    name: 'John Brown',
+    name: "John Brown",
     age: i + 1,
-    street: 'Lake Park',
-    building: 'C',
+    street: "Lake Park",
+    building: "C",
     number: 2035,
-    companyAddress: 'Lake Street 42',
-    companyName: 'SoftLake Co',
-    gender: 'M',
-  })
+    companyAddress: "Lake Street 42",
+    companyName: "SoftLake Co",
+    gender: "M",
+  });
 }
 
 const ResizableTable = () => {
-  const [col, setCol] = useState<any>([])
+  const [col, setCol] = useState<any>([]);
   useEffect(() => {
     setTimeout(() => {
-      setCol(columns)
-    }, 200)
-  }, [])
+      setCol(columns);
+    }, 200);
+  }, []);
   const { components, resizableColumns, tableWidth } = useARH({
     columns: useMemo(() => {
-      console.log(col)
-      return col
+      console.log(col);
+      return col;
     }, [col]),
     columnsState: {
-      persistenceKey: '2023-1-10',
-      persistenceType: 'localStorage',
+      persistenceKey: "2023-1-10",
+      persistenceType: "localStorage",
     },
-  })
+  });
 
   return (
     <>
-      <Table columns={resizableColumns} dataSource={data} components={components} scroll={{ x: tableWidth }} />
+      <Table
+        columns={resizableColumns}
+        dataSource={data}
+        components={components}
+        scroll={{ x: tableWidth }}
+      />
     </>
-  )
-}
+  );
+};
 
-export default ResizableTable
+export default ResizableTable;
