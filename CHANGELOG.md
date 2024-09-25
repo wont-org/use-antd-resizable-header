@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/wont-org/use-antd-resizable-header/compare/v1.0.1...v1.0.2) (2024-09-25)
+
+
+### Bug Fixes
+
+* align right时覆盖拖拽图标问题 ([089d6c6](https://github.com/wont-org/use-antd-resizable-header/commit/089d6c6eb680b46a3e46feb48a37528c90115e49))
+
+
+
 ## [1.0.1](https://github.com/wont-org/use-antd-resizable-header/compare/v2.9.5...v1.0.1) (2024-02-29)
 
 
