@@ -2,6 +2,7 @@
 
 .resizable-container {
   position: relative;
+  line-height: 100%;
 
   &:before {
     display: none;
@@ -25,7 +26,7 @@
 
 .resizable-handler {
   position: absolute;
-  padding: 0 4px;
+  padding: 0 2px;
   right: 0;
   /* bottom: 0; */
   z-index: 1;
@@ -64,6 +65,7 @@
   position: relative;
   z-index: 0;
   width: calc(100% - 20px);
+  margin-right: 20px;
 
   &.ellipsis {
     text-overflow: ellipsis;
