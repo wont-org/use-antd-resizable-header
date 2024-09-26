@@ -207,9 +207,10 @@ function useAntdResizableHeader<
             triggerRender,
           };
         },
-        width: cache
-          ? widthCache.current?.get(col[GETKEY] ?? "")?.width || col?.width
-          : col?.width,
+        width:
+          col?.width && cache
+            ? widthCache.current?.get(col[GETKEY] ?? "")?.width || col?.width
+            : col?.width,
         [GETKEY]: col[GETKEY] || col.key,
       };
     }) as ColumnsType[];
