@@ -1,9 +1,9 @@
-import { Suspense, lazy } from 'react'
-import { useRoutes } from 'react-router-dom'
-import './App.css'
+import { Suspense, lazy } from "react";
+import { useRoutes } from "react-router-dom";
+import "./App.css";
 
 interface FunctionalImportType {
-  (): any
+  (): any;
 }
 
 export default function App() {
@@ -12,24 +12,25 @@ export default function App() {
       <Suspense fallback={<div />}>
         <C />
       </Suspense>
-    )
-  }
+    );
+  };
 
-  const modules = import.meta.glob('./**/index.tsx')
+  const modules = import.meta.glob("./**/index.tsx");
   const routes = Object.keys(modules).map((key) => {
     return {
-      path: key.replace('./', '').replace('/index.tsx', ''),
+      path: key.replace("./", "").replace("/index.tsx", ""),
 
       component: () => import(/* @vite-ignore */ key),
-    }
-  })
+    };
+  });
+  // console.log("routes :>> ", routes);
 
   const element = useRoutes(
     routes.map((t) => ({
       element: comp(lazy(t.component as FunctionalImportType)),
       ...t,
-    })),
-  )
+    }))
+  );
 
-  return <div>{element}</div>
+  return <div>{element}</div>;
 }
