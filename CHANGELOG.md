@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/wont-org/use-antd-resizable-header/compare/v1.0.2...v1.0.3) (2024-09-26)
+
+
+### Bug Fixes
+
+* 动态列宽变化时,如果width不设置,则不使用缓存 ([e2664de](https://github.com/wont-org/use-antd-resizable-header/commit/e2664de9d75849ce203ce09a3a4e376c8390f624))
+
+
+
 ## [1.0.2](https://github.com/wont-org/use-antd-resizable-header/compare/v1.0.1...v1.0.2) (2024-09-25)
 
 
